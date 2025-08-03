@@ -8,7 +8,6 @@ namespace fs = std::filesystem;
 
 //Main Menu Function
 int mainMenu(int choice){
-
 	do{
 		cout<<"\n[1] List Files\n";
 		cout<<"[2] Create Directory\n";
@@ -19,7 +18,6 @@ int mainMenu(int choice){
 	}while(!(choice >= 1 && choice <= 4));
 	return choice;
 }	
-
 //List Files Function 
 void listFiles(){
 	int choice;
@@ -37,24 +35,24 @@ void listFiles(){
 	switch(choice){
 	   	case 1: 
 			cout<<"Files in current directory:\n";
-	        for(const auto& entry : fs::directory_iterator(path)){
-	 			string filePath = entry.path().filename().string();
+	                for(const auto& entry : fs::directory_iterator(path)){
+	 		     string filePath = entry.path().filename().string();
 				 if(filePath.rfind(prefix_files, 0) == 0 ){
-				 }
-	 			cout << "- " << filePath << "\n";
-			}
-		break;
+			      }
+	 			 cout << "- " << filePath << "\n";
+			 }
+		      break;
 		case 2:
 			cout<<"File extension list:\n";
-	        for(const auto& entry : fs::directory_iterator(path)){
-	 			if(fs::is_regular_file(entry)){
+	                for(const auto& entry : fs::directory_iterator(path)){
+	 		    if(fs::is_regular_file(entry)){
 	 			string ext = entry.path().extension().string();
-	 				if(!ext.empty()){
+	 			       if(!ext.empty()){
 	 				   cout << ext << "\n";
 					}
 	 			  }
 				}
-		break;
+		      break;
 		case 3:
 			cout<<"List Pattern: ";
 	        for(const auto& entry : fs::directory_iterator(path)){
@@ -64,12 +62,10 @@ void listFiles(){
 	 				   cout << fileName << "\n";
 					}
 	 			  }
-				}
-			
-		break;
+				}			
+		      break;
 	}
 }
-
 // Create Directory Function
 void createDirectory(){
 	string createDirectoryName;
@@ -77,18 +73,15 @@ void createDirectory(){
 	cin.ignore();
 	getline(cin,createDirectoryName);
 	if(fs::exists(createDirectoryName)){
-		std::cout << "Directory already existed.\n";
+	      std::cout << "Directory already existed.\n";
 	}else{
-		if(fs::create_directory(createDirectoryName)){
-			std::cout << "Directory " << createDirectoryName<< " created successfully.\n";
-     }else {
-     	std::cout << "Failed to create directory.\n";
-	 }
-     
+	      if(fs::create_directory(createDirectoryName)){
+                 std::cout << "Directory " << createDirectoryName<< " created successfully.\n";
+        }else {
+     	      std::cout << "Failed to create directory.\n";
+	      }
 	}
-
 }
-
 //Change Directory Function
 void changeDirectory(){
 	int choice;
@@ -141,16 +134,17 @@ void changeDirectory(){
        }
 
 int main(){
+	cout << "======:Directory Management System:======\n";
 	int choice;
-    do{
+    while(true){
     	int choice2 = mainMenu(choice);
 	
 		switch(choice2){
 			case 1:
 				listFiles();
 				break;
-       		case 2:
-       			createDirectory();
+       		        case 2:
+       			        createDirectory();
 				break;
 			case 3:
 				changeDirectory();
@@ -159,7 +153,8 @@ int main(){
 				cout << "\nExiting Program......";
 				return 0;
 		}
-	}while(true);
+	}
 	
 	return 0;
 }
+
